@@ -1,0 +1,26 @@
+class Solution {
+public:
+    TreeNode* xParent = NULL;
+    TreeNode* yParent = NULL;
+    int xDepth= -1,yDepth= -1;
+    bool isCousins(TreeNode* root, int x, int y) {
+        preorder(root,NULL,0,x,y);
+        return xDepth==yDepth && xParent!=yParent?true:false;
+    }
+    
+    void preorder(TreeNode*root, TreeNode* parent,int depth,int x,int y){
+        if(root==NULL){
+            return;
+        }
+        if(root->val==x){
+            xParent = parent;
+            xDepth = depth;
+        }else if(root->val==y){
+            yParent = parent;
+            yDepth = depth;
+        }else{
+            preorder(root->left,root,depth+1,x,y);
+            preorder(root->right,root,depth+1,x,y);
+        }
+    }
+};
